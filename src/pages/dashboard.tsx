@@ -1,0 +1,446 @@
+import * as React from "react";
+import Navbar from "@/components/Navbar/Navbar";
+import Head from "next/head";
+import Footer from "@/components/Footer/Footer";
+import styles from "@/styles/Dashboard.module.css";
+import Image from "next/image";
+import createBtnLogo from "../assets/create-btn-logo.png";
+import whiteHexaMesh from "../assets/white-hex-mesh.png";
+import addressLogo from "../assets/address-logo1.png";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { addressFormatter, copyTextToClipboard } from "../utils/helper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+
+import styles_Home from "@/styles/Home.module.css";
+
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import yelpat from "../../public/yellow_pat/yellow_pat.webp";
+import greenpat from "../../public/green_pat/green_pat.webp";
+import FormControl from "@mui/material/FormControl";
+import FilledInput from "@mui/material/FilledInput";
+import FormHelperText from "@mui/material/FormHelperText";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import CreateAccount from "@/components/modals/CreateAccount";
+import CreatePersonalAccount from "@/components/modals/CreatePersonalAccount";
+import CreateTeamAccount from "@/components/modals/CreateTeamAccount";
+import GenerateLink from "@/components/modals/GenerateLink";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "50%",
+  bgcolor: "#1A1C20",
+  border: "1px solid #ffffff",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px",
+};
+
+function CreateAccountModal({ open, onClose }: any) {
+  const [stage, setStage] = useState("1");
+  const handleNextStage = (stage: any) => {
+    setStage(stage);
+  };
+  return (
+    <Modal
+      open={open}
+      onClose={() => {
+        onClose();
+        setStage("1");
+      }}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style} style={{ padding: "20px 50px" }}>
+        {stage === "1" && <CreateAccount nextStage={handleNextStage} />}
+        {stage === "1a" && (
+          <CreatePersonalAccount nextStage={handleNextStage} />
+        )}
+        {stage === "1b" && <CreateTeamAccount nextStage={handleNextStage} />}
+      </Box>
+    </Modal>
+  );
+}
+const Dashboard = () => {
+  let activeSquads = [
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "2",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "2",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "2",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "2",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "7",
+    },
+
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "7",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "7",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+      members: "7",
+    },
+  ];
+  let invitations = [
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+    },
+    {
+      teamlogo: addressLogo,
+      teamName: "Team Squad",
+      address: "0x97fcb4e081Bb4fE8276FD4Fb24FBC9D778380111",
+    },
+  ];
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div style={{ background: "#404049" }}>
+      <CreateAccountModal open={open} onClose={handleClose} />
+      <Head>
+        <title>Squad | Dashboard</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={styles.main}>
+        <Navbar navType={"secondary"} />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            color: "white",
+            width: "90%",
+            margin: "100px auto 0px auto",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src={whiteHexaMesh}
+              alt=""
+              style={{
+                height: "2rem",
+                width: "2rem",
+                marginRight: "7px",
+              }}
+            />
+
+            <span
+              style={{
+                color: 'white',
+                fontSize: '1.5rem',
+                fontFamily: 'sans-serif !important',
+              }}
+            >
+              My Accounts
+            </span>
+          </div>
+          <button
+            style={{
+              background: "#1482FA",
+              border: "none",
+              borderRadius: "5px",
+              display: "flex",
+              alignItems: "center",
+              padding: "5px",
+            }}
+            onClick={handleOpen}
+          >
+            <Image
+              src={createBtnLogo}
+              alt=""
+              style={{ height: "2rem", width: "2rem", marginRight: "5px" }}
+            />
+            <span style={{ color: "white", fontSize: "1.5rem" }}>
+              Create Accounts
+            </span>
+          </button>
+        </div>
+        <hr style={{ width: "90%" }} />
+        <div className={styles.box}>
+          <div
+            className={styles.boxTitle}
+            style={{ marginLeft: '2rem', fontFamily: 'sans-serif !important' }}
+          >
+            Active Account
+          </div>
+          <div
+            className={styles.box1}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "center",
+            }}
+          >
+            {activeSquads ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  // border: '2px solid red',
+                  width: '100%',
+                  margin: '15px',
+                  fontFamily: 'sans-serif !important',
+                }}
+              >
+                {activeSquads.map(
+                  ({ teamlogo, teamName, address, members }, index) => (
+                    <Grid
+                      key={`${address}-${index}`}
+                      container
+                      spacing={1}
+                      style={{
+                        background: "#2F343F",
+                        marginBottom: "0.8rem",
+                        width: "100%",
+                        padding: "0.5rem",
+                        marginLeft: "0.099rem",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <Grid
+                        xs={5}
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <Image
+                          src={teamlogo}
+                          alt=""
+                          style={{
+                            height: "2rem",
+                            width: "auto",
+                            marginRight: "0.5rem",
+                          }}
+                        />
+                        <span>{teamName}</span>
+                      </Grid>
+                      <Grid xs={4}>
+                        <span style={{ marginRight: "0.5rem" }}>
+                          {addressFormatter(address)}
+                        </span>
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                          style={{
+                            fontSize: 18,
+                            color: "white",
+                            fill: "none",
+                            fillOpacity: "1",
+
+                            // fontWeight: '300',
+                          }}
+                          onClick={async () => {
+                            await copyTextToClipboard(address);
+                            alert("Copied to clipboard");
+                          }}
+                        />
+                      </Grid>
+                      <Grid xs={1}></Grid>
+                      <Grid xs={2}>{members} Members</Grid>
+                    </Grid>
+                  )
+                )}
+              </div>
+            ) : (
+              <div
+                style={{
+                  alignSelf: 'flex-end',
+                  marginBottom: '1rem',
+                  fontFamily: 'sans-serif !important',
+                }}
+              >
+                There are no active squads. Click on create squad to create your
+                own squad.
+              </div>
+            )}
+          </div>
+          <div
+            className={styles.boxTitle}
+            style={{ marginLeft: '2rem', fontFamily: 'sans-serif !important' }}
+          >
+            Invitations
+          </div>
+          <div
+            className={styles.box1}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              fontFamily: 'sans-serif !important',
+            }}
+          >
+            {invitations ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  // border: '2px solid red',
+                  width: "100%",
+                  margin: "15px",
+                }}
+              >
+                {invitations.map(({ address, teamName, teamlogo }, index) => (
+                  <Grid
+                    key={`${address}-${index}`}
+                    container
+                    spacing={1}
+                    style={{
+                      background: "#2F343F",
+                      marginBottom: "0.8rem",
+                      width: "100%",
+                      padding: "0.5rem",
+                      marginLeft: "0.099rem",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <Grid
+                      xs={5}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <Image
+                        src={teamlogo}
+                        alt=""
+                        style={{
+                          height: "2rem",
+                          width: "auto",
+                          marginRight: "0.5rem",
+                        }}
+                      />
+                      <span>{teamName}</span>
+                    </Grid>
+                    <Grid xs={4}>
+                      <span style={{ marginRight: "0.5rem" }}>
+                        {" "}
+                        {addressFormatter(address)}
+                      </span>
+                      <FontAwesomeIcon
+                        icon={faCopy}
+                        style={{
+                          fontSize: 18,
+                          color: "white",
+                          fill: "none",
+                          fillOpacity: "1",
+
+                          // fontWeight: '300',
+                        }}
+                        onClick={async () => {
+                          await copyTextToClipboard(address);
+                          alert("Copied to clipboard");
+                        }}
+                      />
+                    </Grid>
+                    <Grid xs={3}>
+                      <button
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#00FF0A',
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          marginRight: '4rem',
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faCircleCheck}
+                          style={{
+                            fontSize: 18,
+                            color: '#00FF0A',
+                            marginRight: '0.5rem',
+                          }}
+                        />
+                        Accept
+                      </button>
+                      <button
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#FF4E4E',
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faCircleXmark}
+                          style={{
+                            fontSize: 18,
+                            color: '#FF4E4E',
+                            marginRight: '0.5rem',
+                          }}
+                        />
+                        Decline
+                      </button>
+                    </Grid>
+                  </Grid>
+                ))}
+              </div>
+            ) : (
+              <div
+                style={{
+                  alignSelf: "flex-end",
+                  marginBottom: "1rem",
+                }}
+              >
+                There are no active invitations for you
+              </div>
+            )}
+          </div>
+        </div>
+        <Footer />
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;

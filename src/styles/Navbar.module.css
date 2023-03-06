@@ -1,0 +1,39 @@
+@import url("https://fonts.cdnfonts.com/css/absender");
+.navbar {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  letter-spacing: -0.011em;
+  color: #fec544;
+  font-family: sans-serif;
+}
+
+.navbarTitle {
+  font-family: absender !important;
+  font-weight: 600;
+  margin-right: auto;
+  font-size: 150%;
+  padding: 12px 0px;
+  font-style: normal;
+}
+
+.navbarItem {
+  font-family: sans-serif;
+  padding: 16px 16px;
+  cursor: pointer;
+  vertical-align: middle;
+  color: #cdcdcd;
+  text-decoration: none;
+}
+.navbarItem:hover{
+  color: #fec544;
+}
+.logo {
+  transform: rotate(54deg);
+  height: 45px;
+  width: auto;
+}
